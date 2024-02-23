@@ -9,13 +9,13 @@ class TodoListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
@@ -24,12 +24,22 @@ class TodoListPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 16,
               ),
               ElevatedButton(
-                onPressed: null,
-                child: Text('+'),
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 39, 174, 228),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.all(17),
+                  shape: const BeveledRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(2),
+                    ),
+                  ),
+                ),
+                child: const Icon(Icons.add, size: 30),
               ),
             ],
           ),
