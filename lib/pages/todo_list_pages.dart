@@ -13,33 +13,68 @@ class TodoListPage extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              const Expanded(
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Adicione uma tarefa',
-                    hintText: 'Teste de hint',
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 39, 174, 228),
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.all(17),
-                  shape: const BeveledRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(2),
+              Row(
+                children: [
+                  const Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Adicione uma tarefa',
+                        hintText: 'Teste de hint',
+                      ),
                     ),
                   ),
-                ),
-                child: const Icon(Icons.add, size: 30),
+                  //Sizedbox para o espaço entre o campo de texto e o botão da row
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 39, 174, 228),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.all(17),
+                      shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(2),
+                        ),
+                      ),
+                    ),
+                    child: const Icon(Icons.add, size: 30),
+                  ),
+                ],
+              ),
+              //SizedBox para espaçar as linhas
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                children: [
+                  const Expanded(
+                    child: Text('Você possui 0 tarefas pendentes'),
+                  ),
+                  //Sizedbox para o espaço entre o campo de texto e o botão da row
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 39, 174, 228),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.all(17),
+                      shape: const BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(2),
+                        ),
+                      ),
+                    ),
+                    child: const Text('Limpar Tudo'),
+                  ),
+                ],
               ),
             ],
           ),
