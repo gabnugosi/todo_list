@@ -51,6 +51,32 @@ class TodoListPage extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  Container(
+                    color: Colors.red,
+                    height: 50,
+                    width: 50,
+                  ),
+                  Container(
+                    color: Colors.yellow,
+                    height: 50,
+                  ),
+                  Container(
+                    color: Colors.green,
+                    height: 50,
+                  ),
+                  Container(
+                    color: Colors.blue,
+                    height: 50,
+                  ),
+                ],
+              ),
+              //SizedBox para espaçar as linhas
+              const SizedBox(
+                height: 15,
+              ),
               Row(
                 children: [
                   const Expanded(
