@@ -9,22 +9,27 @@ class TodoListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
             children: [
-              TextField(
-                controller: emailController,
-                decoration: const InputDecoration(labelText: 'E-mail'),
-                onChanged: onChanged,
-                onSubmitted: onSubmitted,
+              Expanded(
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Adicione uma tarefa',
+                    hintText: 'Teste de hint',
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 16,
               ),
               ElevatedButton(
-                onPressed: login,
-                child: const Text('Entrar'),
+                onPressed: null,
+                child: Text('+'),
               ),
             ],
           ),
@@ -38,11 +43,11 @@ class TodoListPage extends StatelessWidget {
     log('emailController = $text');
   }
 
-  void onChanged(String text){
+  void onChanged(String text) {
     log('onChanged = $text');
   }
 
-  void onSubmitted(String text){
+  void onSubmitted(String text) {
     log('onSubmitted = $text');
   }
 }
