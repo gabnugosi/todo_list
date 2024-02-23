@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
 
-class TodoListPage extends StatelessWidget {
+class TodoListPage extends StatefulWidget {
   //pode começar com stateles e se for necessário ir para stateful
-  TodoListPage({super.key});
+  //agora mudou para stateful, pois foi necessário guardar o estado da variável para aplicar na lista de tarefas
+  const TodoListPage({super.key});
 
-  final TextEditingController emailController = TextEditingController();
+  @override
+  State<TodoListPage> createState() => _TodoListPageState();
+}
+
+class _TodoListPageState extends State<TodoListPage> {
+  final TextEditingController todoController = TextEditingController();
+
+  List<String> todos = [];
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +26,13 @@ class TodoListPage extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: todoController,
+                      decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Adicione uma tarefa',
-                        hintText: 'Teste de hint',
+                        hintText: 'Ex: Ir ao mercado',
                       ),
                     ),
                   ),
@@ -32,7 +41,16 @@ class TodoListPage extends StatelessWidget {
                     width: 16,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      String text = todoController.text;
+                      setState(
+                        () {
+                          todos.add(
+                              text); // insere o texto da variável todoController do Campo TextField a cima na lista de tarefas
+                        },
+                      );
+                      todoController.clear();
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color.fromARGB(255, 39, 174, 228),
                       foregroundColor: Colors.white,
@@ -51,32 +69,19 @@ class TodoListPage extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              ListView(
-                shrinkWrap: true,
-                children: [
-                  ListTile(
-                    title: Text('Tarefa 1'),
-                    subtitle: Text('20/01/2021'),
-                    leading: Icon(
-                      Icons.save,
-                      size: 30,
-                    ),
-                    onTap: () {
-                      log('Tarefa 1');
-                    },
-                  ),
-                  ListTile(
-                    title: Text('Tarefa 2'),
-                    subtitle: Text('20/01/2031'),
-                    leading: Icon(
-                      Icons.pedal_bike,
-                      size: 30,
-                    ),
-                    onTap: () {
-                      log('Tarefa 2');
-                    },
-                  ),
-                ],
+              Flexible(
+                child: ListView(
+                  shrinkWrap: true,
+                  children: [
+                    for (String todo in todos)
+                      ListTile(
+                        title: Text(todo),
+                        onTap: () {
+                          log('Tarefa: $todo');
+                        },
+                      ),
+                  ],
+                ),
               ),
               //SizedBox para espaçar as linhas
               const SizedBox(
@@ -112,18 +117,5 @@ class TodoListPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void login() {
-    String text = emailController.text;
-    log('emailController = $text');
-  }
-
-  void onChanged(String text) {
-    log('onChanged = $text');
-  }
-
-  void onSubmitted(String text) {
-    log('onSubmitted = $text');
   }
 }
