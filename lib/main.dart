@@ -1,7 +1,7 @@
 //import "dart:developer";
 
 import "package:flutter/material.dart";
-import "package:todo_list/pages/todo_list_pages.dart";
+import 'package:todo_list/pages/todo_list_page.dart';
 
 void main(){
   runApp(const MyApp()); //função que roda o aplicativo 
