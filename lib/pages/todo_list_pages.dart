@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:developer';
 
+import 'package:todo_list/widgets/todo_list_item.dart';
+
 class TodoListPage extends StatefulWidget {
   //pode começar com stateles e se for necessário ir para stateful
   //agora mudou para stateful, pois foi necessário guardar o estado da variável para aplicar na lista de tarefas
@@ -74,12 +76,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   shrinkWrap: true,
                   children: [
                     for (String todo in todos)
-                      ListTile(
-                        title: Text(todo),
-                        onTap: () {
-                          log('Tarefa: $todo');
-                        },
-                      ),
+                      const TodoListItem(),
                   ],
                 ),
               ),
