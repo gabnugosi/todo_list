@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/models/todo.dart';
 
 import 'package:todo_list/widgets/todo_list_item.dart';
 
@@ -14,7 +15,7 @@ class TodoListPage extends StatefulWidget {
 class _TodoListPageState extends State<TodoListPage> {
   final TextEditingController todoController = TextEditingController();
 
-  List<String> todos = [];
+  List<Todo> todos = [];
   double widthSB = 16;
   double heightSB = 16;
 
@@ -49,14 +50,17 @@ class _TodoListPageState extends State<TodoListPage> {
                         String text = todoController.text;
                         setState(
                           () {
+                            Todo newTodo =
+                                Todo(title: text, dateTime: DateTime.now());
                             todos.add(
-                                text); // insere o texto da variável todoController do Campo TextField a cima na lista de tarefas
+                                newTodo); // insere o texto da variável todoController do Campo TextField a cima na lista de tarefas
                           },
                         );
                         todoController.clear();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 39, 174, 228),
+                        backgroundColor:
+                            const Color.fromARGB(255, 39, 174, 228),
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.all(17),
                         shape: const BeveledRectangleBorder(
@@ -77,8 +81,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      for (String todo in todos)
-                         TodoListItem(title: todo),
+                      for (Todo todo in todos) TodoListItem(todo: todo),
                     ],
                   ),
                 ),
@@ -88,8 +91,9 @@ class _TodoListPageState extends State<TodoListPage> {
                 ),
                 Row(
                   children: [
-                     Expanded(
-                      child: Text('Você possui ${todos.length} tarefas pendentes'),
+                    Expanded(
+                      child:
+                          Text('Você possui ${todos.length} tarefas pendentes'),
                     ),
                     //Sizedbox para o espaço entre o campo de texto e o botão da row
                     SizedBox(
@@ -98,7 +102,8 @@ class _TodoListPageState extends State<TodoListPage> {
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 39, 174, 228),
+                        backgroundColor:
+                            const Color.fromARGB(255, 39, 174, 228),
                         foregroundColor: Colors.white,
                         padding: const EdgeInsets.all(17),
                         shape: const BeveledRectangleBorder(
