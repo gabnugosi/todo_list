@@ -80,7 +80,8 @@ class _TodoListPageState extends State<TodoListPage> {
                   child: ListView(
                     shrinkWrap: true,
                     children: [
-                      for (Todo todo in todos) TodoListItem(todo: todo),
+                      for (Todo todo in todos)
+                        TodoListItem(todo: todo, onDelete: onDelete),
                     ],
                   ),
                 ),
@@ -121,5 +122,11 @@ class _TodoListPageState extends State<TodoListPage> {
         ),
       ),
     );
+  }
+
+  void onDelete(Todo todo) {
+    setState(() {
+      todos.remove(todo);  
+    });
   }
 }
