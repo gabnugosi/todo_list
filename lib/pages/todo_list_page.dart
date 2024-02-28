@@ -105,7 +105,7 @@ class _TodoListPageState extends State<TodoListPage> {
                       width: widthSB,
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: showDeleteTodosConfirmationDialog,
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color.fromARGB(255, 39, 174, 228),
@@ -135,7 +135,6 @@ class _TodoListPageState extends State<TodoListPage> {
 
     setState(() {
       todos.remove(todo);
-
     });
 
     ScaffoldMessenger.of(context).clearSnackBars();
@@ -157,7 +156,62 @@ class _TodoListPageState extends State<TodoListPage> {
             log('Desfazer delete ${deletedTodo!.title} na posição $deletedTodoPos');
           },
         ),
-      duration: const Duration(seconds: 5),
+        duration: const Duration(seconds: 5),
+      ),
+    );
+  }
+
+  void showDeleteTodosConfirmationDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Limpar Tudo?'),
+        content:
+            const Text('Você tem certeza qeu deseja apagar todas as tarefas?'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              log('btn Cancelar limpar tudo');
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.blue,
+              padding: const EdgeInsets.all(17),
+            ),
+            child: const Text("Cancelar"),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              log('btn limpar tudo');
+              deleteAllTodos();
+            },
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red,
+              padding: const EdgeInsets.all(17),
+            ),
+            child: const Text("Limpar"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void deleteAllTodos() {
+    setState(() {
+      todos.clear();
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(
+          'Tarefas removidas!',
+          style: TextStyle(color: Colors.black87),
+        ),
+        backgroundColor: Colors.white,
+        duration: Duration(seconds: 5),
       ),
     );
   }
