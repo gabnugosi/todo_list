@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
@@ -19,7 +21,10 @@ class TodoListItem extends StatelessWidget {
           motion: const DrawerMotion(),
           children: [
             SlidableAction(
-              onPressed: (_) {onDelete(todo);},
+              onPressed: (_) {
+                onDelete(todo);
+                log("Tarefa ${todo.title} deletada.");
+              },
               backgroundColor: const Color.fromARGB(255, 243, 5, 5),
               foregroundColor: Colors.white,
               icon: Icons.delete,

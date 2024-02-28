@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:todo_list/models/todo.dart';
 import 'package:todo_list/widgets/todo_list_item.dart';
@@ -15,6 +17,8 @@ class _TodoListPageState extends State<TodoListPage> {
   final TextEditingController todoController = TextEditingController();
 
   List<Todo> todos = [];
+  Todo? deletedTodo; //nullable pois não tem tarefas deletadas inicialmente
+  int? deletedTodoPos; // posição da tarefa deletada
   double widthSB = 16;
   double heightSB = 16;
 
@@ -53,6 +57,7 @@ class _TodoListPageState extends State<TodoListPage> {
                                 Todo(title: text, dateTime: DateTime.now());
                             todos.add(
                                 newTodo); // insere o texto da variável todoController do Campo TextField a cima na lista de tarefas
+                            log('Tarefa ${newTodo.title} adicionada');
                           },
                         );
                         todoController.clear();
@@ -125,8 +130,35 @@ class _TodoListPageState extends State<TodoListPage> {
   }
 
   void onDelete(Todo todo) {
+    deletedTodo = todo;
+    deletedTodoPos = todos.indexOf(todo);
+
     setState(() {
-      todos.remove(todo);  
+      todos.remove(todo);
+
     });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          'Tarefa ${todo.title} foi removida com sucesso',
+          style: const TextStyle(color: Colors.black87),
+        ),
+        backgroundColor: Colors.white,
+        action: SnackBarAction(
+          label: 'Desfazer',
+          textColor: Colors.blue,
+          onPressed: () {
+            setState(() {
+              todos.insert(deletedTodoPos!, deletedTodo!);
+            });
+            log('Desfazer delete ${deletedTodo!.title} na posição $deletedTodoPos');
+          },
+        ),
+      duration: const Duration(seconds: 5),
+      ),
+    );
   }
 }
