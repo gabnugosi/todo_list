@@ -25,6 +25,17 @@ class _TodoListPageState extends State<TodoListPage> {
   double heightSB = 16;
 
   @override
+  void initState() {
+    super.initState();
+
+    todoRepository.getTodoList().then((value) {
+      setState(() {
+        todos = value;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -63,7 +74,8 @@ class _TodoListPageState extends State<TodoListPage> {
                           },
                         );
                         todoController.clear();
-                        todoRepository.saveTodoList(todos);//salva lista de tarefas
+                        todoRepository
+                            .saveTodoList(todos); //salva lista de tarefas
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor:
@@ -139,6 +151,7 @@ class _TodoListPageState extends State<TodoListPage> {
     setState(() {
       todos.remove(todo);
     });
+    todoRepository.saveTodoList(todos);
 
     ScaffoldMessenger.of(context).clearSnackBars();
 
@@ -156,6 +169,8 @@ class _TodoListPageState extends State<TodoListPage> {
             setState(() {
               todos.insert(deletedTodoPos!, deletedTodo!);
             });
+            todoRepository.saveTodoList(todos);
+
             log('Desfazer delete ${deletedTodo!.title} na posição $deletedTodoPos');
           },
         ),
@@ -204,6 +219,8 @@ class _TodoListPageState extends State<TodoListPage> {
     setState(() {
       todos.clear();
     });
+
+    todoRepository.saveTodoList(todos);
 
     ScaffoldMessenger.of(context).clearSnackBars();
 
