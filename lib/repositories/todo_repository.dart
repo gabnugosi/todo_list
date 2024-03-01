@@ -17,7 +17,7 @@ class TodoRepository {
 
   void saveTodoList(List<Todo> todos) {
     final jsonString = json.encode(todos);
-    sharedPreferences.setString('todo_list', jsonString);
+    sharedPreferences.setString(todoListKey, jsonString);
     log(jsonString);
   }
 }
