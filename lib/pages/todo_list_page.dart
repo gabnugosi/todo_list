@@ -21,6 +21,7 @@ class _TodoListPageState extends State<TodoListPage> {
   List<Todo> todos = [];
   Todo? deletedTodo; //nullable pois não tem tarefas deletadas inicialmente
   int? deletedTodoPos; // posição da tarefa deletada
+  String? errorText = "";
   double widthSB = 16;
   double heightSB = 16;
 
@@ -50,10 +51,20 @@ class _TodoListPageState extends State<TodoListPage> {
                     Expanded(
                       child: TextField(
                         controller: todoController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
                           labelText: 'Adicione uma tarefa',
                           hintText: 'Ex: Ir ao mercado',
+                          errorText: errorText,
+                          focusedBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromARGB(255, 39, 174, 228),
+                              width: 2,
+                            ),
+                          ),
+                          labelStyle: const TextStyle(
+                            color: Color.fromARGB(255, 39, 174, 228),
+                          ),
                         ),
                       ),
                     ),
@@ -64,12 +75,20 @@ class _TodoListPageState extends State<TodoListPage> {
                     ElevatedButton(
                       onPressed: () {
                         String text = todoController.text;
+
+                        if (text.isEmpty) {
+                          setState(() {
+                            errorText = 'O título não pode ser vazio';
+                          });
+                          return;
+                        }
                         setState(
                           () {
                             Todo newTodo =
                                 Todo(title: text, dateTime: DateTime.now());
                             todos.add(
                                 newTodo); // insere o texto da variável todoController do Campo TextField a cima na lista de tarefas
+                            errorText = null;
                             log('Tarefa ${newTodo.title} adicionada');
                           },
                         );
